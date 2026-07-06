@@ -181,22 +181,14 @@ export default function LoginPage() {
         </div>
 
         {/* Third-party buttons */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1">
           <button
             onClick={() => handleSocialLogin('google')}
             disabled={isLoading}
-            className="flex items-center justify-center py-3 bg-white border border-gray-200 hover:bg-gray-50 rounded-2xl transition-colors cursor-pointer text-xs font-bold text-gray-700"
+            className="flex items-center justify-center py-3 bg-white border border-gray-200 hover:bg-gray-50 rounded-2xl transition-colors cursor-pointer text-xs font-bold text-gray-700 w-full"
           >
             <Compass size={14} className="text-red-500 mr-2" />
             Google
-          </button>
-          <button
-            onClick={() => handleSocialLogin('github')}
-            disabled={isLoading}
-            className="flex items-center justify-center py-3 bg-white border border-gray-200 hover:bg-gray-50 rounded-2xl transition-colors cursor-pointer text-xs font-bold text-gray-700"
-          >
-            <GithubIcon size={14} className="text-gray-900 mr-2" />
-            GitHub
           </button>
         </div>
 
