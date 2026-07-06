@@ -11,6 +11,8 @@ import { appsApi, categoriesApi, AppData, Category } from '../lib/api';
 import AppCard from '../components/AppCard';
 import { GridSkeleton } from '../components/SkeletonLoader';
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 export default function HomePage() {
   const [featuredApps, setFeaturedApps] = useState<AppData[]>([]);
   const [trendingApps, setTrendingApps] = useState<AppData[]>([]);
@@ -433,7 +435,7 @@ export default function HomePage() {
                     >
                       <div className="flex items-center space-x-3.5 min-w-0">
                         <img
-                          src={app.iconUrl.startsWith('/') ? `http://localhost:5000${app.iconUrl}` : app.iconUrl}
+                          src={app.iconUrl.startsWith('/') ? `${BACKEND_URL}${app.iconUrl}` : app.iconUrl}
                           alt={app.name}
                           className="w-12 h-12 rounded-xl object-cover"
                         />
@@ -471,7 +473,7 @@ export default function HomePage() {
                     >
                       <div className="flex items-center space-x-3.5 min-w-0">
                         <img
-                          src={app.iconUrl.startsWith('/') ? `http://localhost:5000${app.iconUrl}` : app.iconUrl}
+                          src={app.iconUrl.startsWith('/') ? `${BACKEND_URL}${app.iconUrl}` : app.iconUrl}
                           alt={app.name}
                           className="w-12 h-12 rounded-xl object-cover"
                         />

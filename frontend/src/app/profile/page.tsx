@@ -8,7 +8,8 @@ import {
   Trash2, Compass, Cpu, ChevronRight 
 } from 'lucide-react';
 import { authApi, appsApi, wishlistApi, AppData } from '../../lib/api';
-import AppCard from '../../components/AppCard';
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -106,7 +107,7 @@ export default function ProfilePage() {
                   <div key={item.id} className="relative group border border-gray-50 rounded-2xl p-4 bg-muted-custom/30 hover:border-red-200 transition-colors">
                     <div className="flex items-center space-x-3">
                       <img
-                        src={item.app.iconUrl.startsWith('/') ? `http://localhost:5000${item.app.iconUrl}` : item.app.iconUrl}
+                        src={item.app.iconUrl.startsWith('/') ? `${BACKEND_URL}${item.app.iconUrl}` : item.app.iconUrl}
                         alt={item.app.name}
                         className="w-10 h-10 rounded-lg object-cover"
                       />
@@ -146,7 +147,7 @@ export default function ProfilePage() {
                   <div key={h.id} className="flex items-center justify-between p-4 border border-gray-50 rounded-2xl bg-muted-custom/30 text-xs">
                     <div className="flex items-center space-x-3.5 min-w-0">
                       <img
-                        src={h.app.iconUrl.startsWith('/') ? `http://localhost:5000${h.app.iconUrl}` : h.app.iconUrl}
+                        src={h.app.iconUrl.startsWith('/') ? `${BACKEND_URL}${h.app.iconUrl}` : h.app.iconUrl}
                         alt={h.app.name}
                         className="w-10 h-10 rounded-lg object-cover"
                       />
@@ -182,7 +183,7 @@ export default function ProfilePage() {
                 recommendations.map((app) => (
                   <div key={app.id} className="border border-gray-50 p-4 rounded-2xl shadow-soft flex items-center space-x-3 hover:border-emerald-200 transition-colors">
                     <img
-                      src={app.iconUrl.startsWith('/') ? `http://localhost:5000${app.iconUrl}` : app.iconUrl}
+                      src={app.iconUrl.startsWith('/') ? `${BACKEND_URL}${app.iconUrl}` : app.iconUrl}
                       alt={app.name}
                       className="w-10 h-10 rounded-lg object-cover"
                     />

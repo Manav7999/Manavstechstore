@@ -8,6 +8,7 @@ import {
   BarChart3, Upload, FileText, CheckCircle, AlertTriangle, ChevronRight 
 } from 'lucide-react';
 import { appsApi, categoriesApi, authApi, AppData, Category } from '../../lib/api';
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -268,7 +269,7 @@ export default function DashboardPage() {
                   <tr key={app.id} className="hover:bg-muted-custom/35 transition-colors">
                     <td className="py-4 px-6 flex items-center space-x-3">
                       <img
-                        src={app.iconUrl.startsWith('/') ? `http://localhost:5000${app.iconUrl}` : app.iconUrl}
+                        src={app.iconUrl.startsWith('/') ? `${BACKEND_URL}${app.iconUrl}` : app.iconUrl}
                         alt={app.name}
                         className="w-10 h-10 rounded-lg object-cover bg-white border border-gray-100 flex-shrink-0"
                       />
