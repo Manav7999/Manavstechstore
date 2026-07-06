@@ -98,7 +98,7 @@ export default function Navbar() {
   const navLinks = [
     { label: 'Apps', href: '/search' },
     { label: 'Categories', href: '/search?tab=categories' },
-    { label: 'Developer', href: '/developer' },
+    { label: 'Developer', href: 'https://manavstech.vercel.app' },
   ];
 
   return (
@@ -145,6 +145,8 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className={`text-sm font-medium transition-colors ${
                   pathname === link.href ? 'text-primary' : 'text-gray-600'
                 }`}
@@ -282,6 +284,8 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
                   pathname === link.href ? 'bg-primary/5 text-primary' : 'text-gray-600'
                 }`}

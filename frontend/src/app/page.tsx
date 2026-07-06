@@ -138,12 +138,14 @@ export default function HomePage() {
                   Explore Apps
                   <ArrowRight size={16} className="ml-2 transition-transform" />
                 </Link>
-                <Link
-                  href="/developer"
+                <a
+                  href="https://manavstech.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-6 py-3.5 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-full transition-all shadow-soft"
                 >
                   Developer Portfolio
-                </Link>
+                </a>
               </motion.div>
             </div>
 
