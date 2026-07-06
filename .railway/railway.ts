@@ -11,6 +11,7 @@ export default defineRailway(() => {
 
   // Define backend Express API service
   const backend = service("backend", {
+    source: github("Manav7999/Manavstechstore", { branch: "main" }),
     root: "/backend",
     domains: ["manavstechstore-backend.railway.app"],
     env: {
@@ -29,6 +30,7 @@ export default defineRailway(() => {
 
   // Define frontend Next.js service
   const frontend = service("frontend", {
+    source: github("Manav7999/Manavstechstore", { branch: "main" }),
     root: "/frontend",
     domains: ["manavstechstore.railway.app"],
     env: {
