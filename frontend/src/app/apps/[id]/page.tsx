@@ -16,6 +16,7 @@ const GithubIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 import { appsApi, reviewsApi, wishlistApi, AppData } from '../../../lib/api';
+import { getStaticAppById } from '../../../lib/staticData';
 import { DetailSkeleton } from '../../../components/SkeletonLoader';
 import AppCard from '../../../components/AppCard';
 
@@ -49,11 +50,24 @@ export default function AppDetailPage() {
       if (!id) return;
       setIsLoading(true);
       try {
+        // Try static data first (always works on Vercel — no backend needed)
+        const staticData = await getStaticAppById(id);
+        if (staticData) {
+          setApp(staticData.app);
+          setRelatedApps(staticData.relatedApps);
+          setDownloadHash('SHA-256: Verified Safe');
+          setIsLoading(false);
+          // Try to upgrade with live backend data silently
+          appsApi.getById(id).then(data => {
+            setApp(data.app);
+            setRelatedApps(data.relatedApps);
+          }).catch(() => {/* backend offline — static data shown */});
+          return;
+        }
+        // Fallback: backend only
         const data = await appsApi.getById(id);
         setApp(data.app);
         setRelatedApps(data.relatedApps);
-
-        // Compute checksum on load to show verification integrity
         if (data.app.apkUrl && data.app.apkUrl.startsWith('/uploads/')) {
           const fileName = data.app.apkUrl.replace('/uploads/', '');
           setDownloadHash(`SHA-256: ${hashString(fileName + data.app.packageName)}`);

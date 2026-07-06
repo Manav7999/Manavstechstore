@@ -8,6 +8,7 @@ import {
   ArrowRight, Search, Cpu, ArrowUpRight, Flame, Award
 } from 'lucide-react';
 import { appsApi, categoriesApi, AppData, Category } from '../lib/api';
+import { getStaticApps, getStaticCategories } from '../lib/staticData';
 import AppCard from '../components/AppCard';
 import { GridSkeleton } from '../components/SkeletonLoader';
 
@@ -27,12 +28,34 @@ export default function HomePage() {
   useEffect(() => {
     async function loadHomeData() {
       try {
+        // Try static data first (always works on Vercel — no backend needed)
+        const [staticApps, staticCats] = await Promise.all([
+          getStaticApps(),
+          getStaticCategories()
+        ]);
+
+        if (staticApps.length > 0) {
+          setFeaturedApps(staticApps.filter(a => a.isFeatured));
+          setTrendingApps(staticApps.filter(a => a.isTrending));
+          setEditorsChoice(staticApps.filter(a => a.isEditorsChoice));
+          setCategories(staticCats);
+          setIsLoading(false);
+          // Also try to merge live backend data in background
+          appsApi.getAll().then(liveApps => {
+            if (liveApps.length > 0) {
+              setFeaturedApps(liveApps.filter(a => a.isFeatured));
+              setTrendingApps(liveApps.filter(a => a.isTrending));
+              setEditorsChoice(liveApps.filter(a => a.isEditorsChoice));
+            }
+          }).catch(() => {/* backend offline — static data already shown */});
+          return;
+        }
+
+        // Fallback: try backend directly
         const [allApps, cats] = await Promise.all([
           appsApi.getAll(),
           categoriesApi.getAll()
         ]);
-        
-        // Filter groups
         setFeaturedApps(allApps.filter(a => a.isFeatured));
         setTrendingApps(allApps.filter(a => a.isTrending));
         setEditorsChoice(allApps.filter(a => a.isEditorsChoice));
@@ -46,31 +69,41 @@ export default function HomePage() {
     loadHomeData();
   }, []);
 
-  const handleAiSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!aiQuery.trim()) return;
-
+  const runAiSearch = async (query: string) => {
     setIsAiSearching(true);
     setHasSearchedAi(true);
     try {
-      const results = await appsApi.aiSearch(aiQuery);
+      // Try backend AI search first
+      const results = await appsApi.aiSearch(query);
       setAiResults(results);
-    } catch (err) {
-      console.error('AI query process failed:', err);
+    } catch {
+      // Fallback: simple keyword match on static data
+      const { apps } = await import('../lib/staticData').then(m => m.getStaticData());
+      const q = query.toLowerCase();
+      const matched = apps
+        .map(app => ({
+          app,
+          score: [
+            app.name, app.shortDescription, app.description,
+            app.category?.name ?? ''
+          ].join(' ').toLowerCase().includes(q) ? 60 : 0
+        }))
+        .filter(r => r.score > 0);
+      setAiResults(matched);
     } finally {
       setIsAiSearching(false);
     }
   };
 
+  const handleAiSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!aiQuery.trim()) return;
+    await runAiSearch(aiQuery);
+  };
+
   const handleTryExample = (prompt: string) => {
     setAiQuery(prompt);
-    // Submit query automatically
-    setIsAiSearching(true);
-    setHasSearchedAi(true);
-    appsApi.aiSearch(prompt)
-      .then(results => setAiResults(results))
-      .catch(err => console.error(err))
-      .finally(() => setIsAiSearching(false));
+    runAiSearch(prompt);
   };
 
   // Stats Counters

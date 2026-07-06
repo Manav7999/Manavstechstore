@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Search, SlidersHorizontal, Cpu, Sparkles, LayoutGrid } from 'lucide-react';
 import { appsApi, categoriesApi, AppData, Category } from '../../lib/api';
+import { getStaticApps, getStaticCategories } from '../../lib/staticData';
 import AppCard from '../../components/AppCard';
 import { GridSkeleton } from '../../components/SkeletonLoader';
 
@@ -43,18 +44,24 @@ function SearchPageContent() {
     async function fetchFilteredApps() {
       setIsLoading(true);
       try {
-        const data = await appsApi.getAll({
-          search,
-          category,
-          offline,
-          aiPowered,
-          sort,
-        });
-        setApps(data);
-      } catch (err) {
-        console.error('Failed to load apps directory:', err);
-      } finally {
+        // Try static data first (always works on Vercel)
+        const staticApps = await getStaticApps({ search, category, offline, aiPowered });
+        setApps(staticApps);
         setIsLoading(false);
+        // Try to merge live data in background
+        appsApi.getAll({ search, category, offline, aiPowered, sort })
+          .then(liveApps => { if (liveApps.length > 0) setApps(liveApps); })
+          .catch(() => {/* backend offline */});
+      } catch (err) {
+        // Final fallback to backend only
+        try {
+          const data = await appsApi.getAll({ search, category, offline, aiPowered, sort });
+          setApps(data);
+        } catch {
+          console.error('Failed to load apps:', err);
+        } finally {
+          setIsLoading(false);
+        }
       }
     }
     fetchFilteredApps();
@@ -62,9 +69,9 @@ function SearchPageContent() {
 
   // Load categories list
   useEffect(() => {
-    categoriesApi.getAll()
+    getStaticCategories()
       .then(setCategories)
-      .catch(err => console.error(err));
+      .catch(() => categoriesApi.getAll().then(setCategories).catch(console.error));
   }, []);
 
   const handleClearFilters = () => {
