@@ -1,0 +1,119 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               String            @id @default(uuid())
+  email            String            @unique
+  passwordHash     String
+  name             String
+  role             String            @default("USER") // USER or ADMIN
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  reviews          Review[]
+  downloadHistory  DownloadHistory[]
+  wishlist         WishlistItem[]
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  icon      String   // Lucide icon name (e.g. "Cpu", "Layout", "Users")
+  apps      App[]
+  createdAt DateTime @default(now())
+}
+
+model App {
+  id               String            @id @default(uuid())
+  name             String
+  packageName      String            @unique
+  shortDescription String
+  description      String
+  versionName      String
+  versionCode      Int
+  apkUrl           String
+  iconUrl          String
+  bannerUrl        String?
+  appSize          String
+  minAndroid       String
+  targetAndroid    String
+  rating           Float             @default(0.0)
+  downloadsCount   Int               @default(0)
+  isAiPowered      Boolean           @default(false)
+  isOffline        Boolean           @default(false)
+  isFeatured       Boolean           @default(false)
+  isTrending       Boolean           @default(false)
+  isEditorsChoice  Boolean           @default(false)
+  supportEmail     String?
+  websiteUrl       String?
+  githubUrl        String?
+  linkedinUrl      String?
+  
+  categoryId       String
+  category         Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  screenshots      Screenshot[]
+  reviews          Review[]
+  downloads        DownloadHistory[]
+  wishlist         WishlistItem[]
+  
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model Screenshot {
+  id        String   @id @default(uuid())
+  appId     String
+  app       App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  url       String
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id             String   @id @default(uuid())
+  appId          String
+  app            App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating         Int      // 1 to 5
+  comment        String
+  helpfulCount   Int      @default(0)
+  developerReply String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model DownloadHistory {
+  id           String   @id @default(uuid())
+  appId        String
+  app          App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  downloadedAt DateTime @default(now())
+  version      String
+}
+
+model WishlistItem {
+  id      String   @id @default(uuid())
+  appId   String
+  app     App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  addedAt DateTime @default(now())
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  imageUrl  String?
+  author    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #111827;
+  --primary: #18AC58;
+  --primary-hover: #138B47;
+  --secondary: #6B7280;
+  --border: #E5E7EB;
+  --card: #FFFFFF;
+  --muted: #F9FAFB;
+}
+
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-border-custom: var(--border);
+  --color-card-custom: var(--card);
+  --color-muted-custom: var(--muted);
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism Styles */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-dark {
+  background: rgba(17, 24, 39, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(229, 231, 235, 0.2);
+}
+
+/* Premium Shadows (Material 3 inspired) */
+.shadow-soft {
+  box-shadow: 0 4px 20px -2px rgba(17, 24, 39, 0.03), 0 2px 6px -1px rgba(17, 24, 39, 0.01);
+}
+
+.shadow-md3 {
+  box-shadow: 0 10px 30px -4px rgba(17, 24, 39, 0.05), 0 4px 12px -2px rgba(17, 24, 39, 0.02);
+}
+
+.shadow-md3-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.shadow-md3-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -8px rgba(24, 172, 88, 0.08), 0 4px 16px -2px rgba(17, 24, 39, 0.03);
+}
+
+/* Custom horizontal scroll bar hides */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Accent highlight selection */
+::selection {
+  background-color: rgba(24, 172, 88, 0.2);
+  color: #0c7237;
+}
+
+/* Skeleton Loading Shine */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 2s infinite;
+  content: '';
+}
+
+/* Spinner Loader Styles */
+.loader {
+  position: absolute;
+  top: calc(50% - 1.25em);
+  left: calc(50% - 1.25em);
+  width: 2.5em;
+  height: 2.5em;
+  transform: rotate(165deg);
+}
+
+.loader:before, .loader:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 0.25em;
+  transform: translate(-50%, -50%);
+}
+
+.loader:before {
+  animation: before8 2s infinite;
+}
+
+.loader:after {
+  animation: after6 2s infinite;
+}
+
+@keyframes before8 {
+  0% {
+    width: 0.5em;
+    box-shadow: 1em -0.5em rgba(24, 172, 88, 0.85), -1em 0.5em rgba(17, 24, 39, 0.85);
+  }
+
+  35% {
+    width: 2.5em;
+    box-shadow: 0 -0.5em rgba(24, 172, 88, 0.85), 0 0.5em rgba(17, 24, 39, 0.85);
+  }
+
+  70% {
+    width: 0.5em;
+    box-shadow: -1em -0.5em rgba(24, 172, 88, 0.85), 1em 0.5em rgba(17, 24, 39, 0.85);
+  }
+
+  100% {
+    box-shadow: 1em -0.5em rgba(24, 172, 88, 0.85), -1em 0.5em rgba(17, 24, 39, 0.85);
+  }
+}
+
+@keyframes after6 {
+  0% {
+    height: 0.5em;
+    box-shadow: 0.5em 1em rgba(255, 255, 255, 0.95), -0.5em -1em rgba(24, 172, 88, 0.85);
+  }
+
+  35% {
+    height: 2.5em;
+    box-shadow: 0.5em 0 rgba(255, 255, 255, 0.95), -0.5em 0 rgba(24, 172, 88, 0.85);
+  }
+
+  70% {
+    height: 0.5em;
+    box-shadow: 0.5em -1em rgba(255, 255, 255, 0.95), -0.5em 1em rgba(24, 172, 88, 0.85);
+  }
+
+  100% {
+    box-shadow: 0.5em 1em rgba(255, 255, 255, 0.95), -0.5em -1em rgba(24, 172, 88, 0.85);
+  }
+}
