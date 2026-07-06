@@ -5,7 +5,7 @@ import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const WORKSPACE_DIR = path.resolve(__dirname, '../../');
+const WORKSPACE_DIR = path.resolve(__dirname, '../seed-assets');
 const UPLOADS_DIR = path.resolve(__dirname, '../uploads');
 
 // Helper to copy files if they exist
