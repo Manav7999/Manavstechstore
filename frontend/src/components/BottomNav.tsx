@@ -94,7 +94,7 @@ export default function BottomNav() {
       </Link>
 
       {/* Dynamic Tabs Based on Auth State */}
-      {user ? (
+      {user && (
         <>
           {/* 3. Wishlist */}
           <Link 
@@ -133,17 +133,6 @@ export default function BottomNav() {
             </Link>
           )}
         </>
-      ) : (
-        /* Guest - Sign In Button */
-        <Link 
-          href="/auth/login" 
-          className={`flex flex-col items-center space-y-1 transition-all ${
-            isActive('/auth/login') ? 'text-primary scale-105' : 'text-gray-400 hover:text-gray-600'
-          }`}
-        >
-          <LogIn size={20} className={isActive('/auth/login') ? 'stroke-[2.5px]' : 'stroke-[2px]'} />
-          <span className="text-[10px] font-bold tracking-tight">Sign In</span>
-        </Link>
       )}
     </div>
   );
