@@ -252,48 +252,7 @@ async function main() {
 
   console.log('Seeded all apps.');
 
-  // Create mock reviews for apps
-  await prisma.review.createMany({
-    data: [
-      {
-        appId: cdialer.id,
-        userId: normalUser.id,
-        rating: 5,
-        comment: 'Absolutely love the clean layout and Material Design 3 elements! The contact grouping is incredibly handy and it respects my privacy.',
-        helpfulCount: 12,
-        developerReply: 'Thank you Jane! Glad you appreciate the privacy-first model and Material design implementation.',
-      },
-      {
-        appId: cdialer.id,
-        userId: adminUser.id,
-        rating: 5,
-        comment: 'Fast dialer, does not lag at all compared to the default Google Dialer on low end chips.',
-        helpfulCount: 4,
-      },
-      {
-        appId: mplayer.id,
-        userId: normalUser.id,
-        rating: 5,
-        comment: 'Visualizer is stunning! Gapless playback runs flawlessly with my FLAC collection. Strongly recommended.',
-        helpfulCount: 22,
-        developerReply: 'Awesome! Audiophile-grade playback was a major engineering goal for MPlayer.',
-      },
-      {
-        appId: mynote.id,
-        userId: normalUser.id,
-        rating: 4,
-        comment: 'Strong offline markdown notes app. It is simple, fast, and does not require complex subscriptions.',
-        helpfulCount: 9,
-      },
-      {
-        appId: chatme.id,
-        userId: normalUser.id,
-        rating: 4,
-        comment: 'Nice decentralized messaging application, perfect for fast communications in local wifi setups.',
-        helpfulCount: 3,
-      }
-    ],
-  });
+  // Removed mock reviews seeding as requested.
 
   // Create mock blogs
   await prisma.blog.createMany({
