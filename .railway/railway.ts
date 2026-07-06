@@ -1,13 +1,44 @@
-import { defineRailway, project, service } from "railway/iac";
+import { defineRailway, github, project, service, volume } from "railway/iac";
 
 export default defineRailway(() => {
-  const web = service("web", {
-    // No GitHub remote detected. `railway up` will upload this directory.
-    build: "npm run build",
-    start: "npm --prefix frontend run start",
+  // Define persistent volume for backend sqlite db & file uploads
+  const backendVolume = volume("backend-volume", {
+    alerts: { usage: { "100": {}, "80": {}, "95": {} } },
+    allowOnlineResize: true,
+    region: "sfo",
+    sizeMB: 500
   });
 
-  return project("ManavstechStore", {
-    resources: [web],
+  // Define backend Express API service
+  const backend = service("backend", {
+    root: "/backend",
+    domains: ["manavstechstore-backend.railway.app"],
+    env: {
+      PORT: "8080",
+      DATABASE_URL: "file:/app/uploads/dev.db",
+      JWT_SECRET: "my-super-secret-jwt-key-12345",
+      NODE_ENV: "production",
+    },
+    deploy: {
+      startCommand: "npx prisma db push && npx prisma db seed && node dist/server.js",
+    },
+    volumeMounts: {
+      "/app/uploads": backendVolume,
+    },
+  });
+
+  // Define frontend Next.js service
+  const frontend = service("frontend", {
+    root: "/frontend",
+    domains: ["manavstechstore.railway.app"],
+    env: {
+      PORT: "3000",
+      NEXT_PUBLIC_API_URL: "https://manavstechstore-backend.railway.app",
+      NODE_ENV: "production",
+    },
+  });
+
+  return project("manavstech-store", {
+    resources: [backendVolume, backend, frontend],
   });
 });
