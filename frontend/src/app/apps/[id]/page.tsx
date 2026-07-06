@@ -228,25 +228,12 @@ export default function AppDetailPage() {
               <Download size={16} className="mr-2" />
               Download APK
             </button>
-            <div className="flex gap-3 justify-center w-full sm:w-auto">
-              <button
-                onClick={() => setShowQr(!showQr)}
-                className="flex-grow sm:flex-grow-0 inline-flex items-center justify-center px-5 py-3.5 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-full transition-all shadow-soft whitespace-nowrap"
-              >
-                QR Code Download
-              </button>
-              {app.githubUrl && (
-                <a
-                  href={app.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center p-3.5 bg-white border border-gray-200 text-gray-700 rounded-full transition-all shadow-soft flex-shrink-0"
-                  title="View Source on GitHub"
-                >
-                  <GithubIcon size={18} />
-                </a>
-              )}
-            </div>
+            <button
+              onClick={() => setShowQr(!showQr)}
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-full transition-all shadow-soft whitespace-nowrap"
+            >
+              QR Code Download
+            </button>
           </div>
 
           {/* Checksum & QR Overlay */}
