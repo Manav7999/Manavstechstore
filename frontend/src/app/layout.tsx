@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Providers from '../components/Providers';
 import BackToTop from '../components/BackToTop';
+import BottomNav from '../components/BottomNav';
 
 export const metadata: Metadata = {
   title: 'ManavsTech Store - Modern Android App Marketplace',
@@ -35,10 +36,11 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex flex-col justify-between" suppressHydrationWarning>
         <Providers>
           <Navbar />
-          <main className="flex-grow pt-24">
+          <main className="flex-grow pt-24 pb-20 md:pb-0">
             {children}
           </main>
           <Footer />
+          <BottomNav />
           <BackToTop />
         </Providers>
       </body>
