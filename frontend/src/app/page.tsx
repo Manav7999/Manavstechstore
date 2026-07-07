@@ -526,7 +526,7 @@ export default function HomePage() {
                 Get ManavsTech Store on your Phone
               </h2>
               <p className="text-gray-400 text-sm font-medium max-w-lg">
-                Download the official ManavsTech Store Android app and access all apps, updates, and downloads directly from your device — no browser required.
+                Download the official ManavsTech Store Android app and access all apps, updates, and downloads directly from your device. No browser required.
               </p>
             </div>
 
