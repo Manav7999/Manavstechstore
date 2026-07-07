@@ -533,7 +533,7 @@ export default function HomePage() {
             {/* Download Button */}
             <div className="flex-shrink-0">
               <a
-                href="/ManavsTech-Store.apk"
+                href="/api/download/store"
                 download="ManavsTech-Store.apk"
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-white font-bold rounded-2xl transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl text-sm whitespace-nowrap"
               >
