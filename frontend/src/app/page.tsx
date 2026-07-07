@@ -498,7 +498,7 @@ export default function HomePage() {
 
       {/* Download the Store App Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8 sm:p-12 shadow-md3">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary to-[#117c3e] p-8 sm:p-12 shadow-md3">
           {/* Decorative blobs */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-primary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4 pointer-events-none" />
@@ -515,14 +515,14 @@ export default function HomePage() {
 
             {/* Text Content */}
             <div className="flex-grow text-center md:text-left space-y-2">
-              <div className="inline-flex items-center space-x-1.5 bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold mb-1">
+              <div className="inline-flex items-center space-x-1.5 bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold mb-1">
                 <Download size={11} />
                 <span>Native Android App</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 Get ManavsTech Store on your Phone
               </h2>
-              <p className="text-gray-400 text-sm font-medium max-w-lg">
+              <p className="text-white/80 text-sm font-medium max-w-lg">
                 Download the official ManavsTech Store Android app and access all apps, updates, and downloads directly from your device. No browser required.
               </p>
             </div>
@@ -532,12 +532,12 @@ export default function HomePage() {
               <a
                 href="/ManavsTech-Store.apk"
                 download="ManavsTech-Store.apk"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-white font-bold rounded-2xl transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl text-sm whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-gray-900 hover:bg-black text-white font-bold rounded-2xl transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl text-sm whitespace-nowrap"
               >
                 <Download size={18} />
                 Download APK
               </a>
-              <p className="text-gray-500 text-[11px] font-medium text-center mt-2">Android 7.0+ required</p>
+              <p className="text-white/60 text-[11px] font-medium text-center mt-2">Android 7.0+ required</p>
             </div>
           </div>
         </div>
