@@ -507,12 +507,9 @@ export default function HomePage() {
             {/* App Icon */}
             <div className="flex-shrink-0">
               <img
-                src={`${BACKEND_URL}/uploads/manavstech-store-icon.png`}
+                src="/manavstech-store-icon.png"
                 alt="ManavsTech Store App"
                 className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl shadow-lg border-2 border-white/10 object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
               />
             </div>
 
@@ -533,7 +530,7 @@ export default function HomePage() {
             {/* Download Button */}
             <div className="flex-shrink-0">
               <a
-                href="/api/download/store"
+                href="/ManavsTech-Store.apk"
                 download="ManavsTech-Store.apk"
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-white font-bold rounded-2xl transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl text-sm whitespace-nowrap"
               >
