@@ -86,6 +86,10 @@ async function main() {
 
   console.log('Created categories.');
 
+  // Copy ManavsTech Store App APK and icon
+  copyFileIfExists('ManavsTech Store.apk', 'manavstech-store.apk');
+  copyFileIfExists('ManavsTech app Store iconlogo.png', 'manavstech-store-icon.png');
+
   // Copy files for CDialer
   const cDialerApk = copyFileIfExists('CDialer apk file.apk', 'cdialer.apk');
   const cDialerIcon = copyFileIfExists('CDialer app icon.png', 'cdialer-icon.png');
