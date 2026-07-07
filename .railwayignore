@@ -5,5 +5,9 @@ node_modules
 backend/dist
 backend/uploads
 frontend/out
-*.apk
-**/*.apk
+backend/seed-assets/*.apk
+ManavsTech Store.apk
+CDialer apk file.apk
+ChatMe apk file.apk
+Mplayer apk file.apk
+MyNote apk file.apk
