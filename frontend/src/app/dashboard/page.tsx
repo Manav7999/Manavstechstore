@@ -7,8 +7,7 @@ import {
   LayoutDashboard, Plus, Edit, Trash2, 
   BarChart3, Upload, FileText, CheckCircle, AlertTriangle, ChevronRight 
 } from 'lucide-react';
-import { appsApi, categoriesApi, authApi, AppData, Category } from '../../lib/api';
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+import { appsApi, categoriesApi, authApi, AppData, Category, BACKEND_URL } from '../../lib/api';
 
 export default function DashboardPage() {
   const router = useRouter();

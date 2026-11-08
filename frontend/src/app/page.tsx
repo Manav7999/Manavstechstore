@@ -7,11 +7,9 @@ import {
   Sparkles, ShieldCheck, Download, Users, 
   ArrowRight, Search, Cpu, ArrowUpRight, Flame, Award
 } from 'lucide-react';
-import { appsApi, categoriesApi, AppData, Category } from '../lib/api';
+import { appsApi, categoriesApi, AppData, Category, BACKEND_URL } from '../lib/api';
 import AppCard from '../components/AppCard';
 import { GridSkeleton } from '../components/SkeletonLoader';
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function HomePage() {
   const [featuredApps, setFeaturedApps] = useState<AppData[]>([]);

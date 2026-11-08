@@ -15,11 +15,9 @@ const GithubIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-import { appsApi, reviewsApi, wishlistApi, AppData } from '../../../lib/api';
+import { appsApi, reviewsApi, wishlistApi, AppData, BACKEND_URL } from '../../../lib/api';
 import { DetailSkeleton } from '../../../components/SkeletonLoader';
 import AppCard from '../../../components/AppCard';
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function AppDetailPage() {
   const router = useRouter();

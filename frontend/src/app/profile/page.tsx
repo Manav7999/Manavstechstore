@@ -7,8 +7,7 @@ import {
   User, Download, Heart, Star, Sparkles, 
   Trash2, Compass, Cpu, ChevronRight 
 } from 'lucide-react';
-import { authApi, appsApi, wishlistApi, AppData } from '../../lib/api';
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+import { authApi, appsApi, wishlistApi, AppData, BACKEND_URL } from '../../lib/api';
 
 
 export default function ProfilePage() {

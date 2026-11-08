@@ -5,13 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Star, Download, Cpu, Sparkles } from 'lucide-react';
-import { AppData } from '../lib/api';
+import { AppData, BACKEND_URL } from '../lib/api';
 
 interface AppCardProps {
   app: AppData;
 }
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function AppCard({ app }: AppCardProps) {
   // Solve static asset URLs from backend or mock images
